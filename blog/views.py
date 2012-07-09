@@ -17,8 +17,8 @@ def post_list(request):
 def post_detail(request, id, showComments=True):
     thing = Post.objects.get(id = id)
     something= Comment.objects.get(id=id)
-    
-    return HttpResponse('<h1 style="color:pink">' +thing.title +'</h1>' + '<br>'+thing.body +'<br>'+'<h4 style="color:green">'+'comment:'+'</h4>'+something.body)
+    tk='<h1 style="color:pink">' +thing.title +'</h1>' + '<br>'+thing.body +'<br>'+'<h4 style="color:green">'+'comment:'+'</h4>'+something.body
+    return HttpResponse(tk)
    
 
    
