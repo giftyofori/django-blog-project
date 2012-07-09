@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'G_blog.views.home', name='home'),
     # url(r'^admin/', include(admin.sites.urls)),
     # url(r'^G_blog/', include('G_blog.foo.urls')),
+    url(r'^blog/',include('blog.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
