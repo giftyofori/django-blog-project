@@ -1,36 +1,39 @@
 
 from django.template import Context, loader
-
+from django.shortcuts import render_to_response
 from django.http import HttpResponse
 
 from models import Post, Comment 
 
 
 def post_list(request):
-    post_list = Post.objects.all()
-    
-    print type(post_list)
-    print post_list
-    
-    return HttpResponse(post_list)
+    posts = Post.objects.all()
+    t=loader.get_template('blog/post_list.html')
+    c=Context({'posts':posts})
+    return HttpResponse(t.render(c))
 
 def post_detail(request, id, showComments=True):
-    thing = Post.objects.get(id = id)
-    something= Comment.objects.get(id=id)
-    tk='<h1 style="color:pink">' +thing.title +'</h1>' + '<br>'+thing.body +'<br>'+'<h4 style="color:green">'+'comment:'+'</h4>'+something.body
+    post = Post.objects.get(id = id)
+    comments = post.comment_set.all()
+    return render_to_response('blog/post_detail.html',{'post':post,'comments':comments})
+   
+'''
+    tk='<h1 style="color:pink">' +thing.title +'</h1>' +     '<br>'+thing.body +'<br>'+'<h4 style="color:green">'+'comment:'+'</ h4>'+something.body
     return HttpResponse(tk)
+'''
    
 
+   
    
     
 def post_search(request, term):
-    search= Post.objects.filter(title__icontains =term)
-    return HttpResponse ( search.body)
+    posts= Post.objects.filter(body__icontains =term)
+    return render_to_response('blog/post_search.html',{'posts':posts,'term':term})
    
 
 def home(request):
     print 'it works'
-    return HttpResponse('hello world. Ete sene?')
+    return render_to_response('blog/base.html',{})
  
 
 

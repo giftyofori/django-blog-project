@@ -1,0 +1,15 @@
+{%extends "blog/base.html"%}
+{%block content%}
+{%for post in posts%}
+
+	<a href="/blog/posts/{{post.id}}">{{post.title}}</a>
+
+<ul>
+
+	<li><h5 style="color:red">Created:</h5> {{post.created}}</li>
+        <li>Last updated: {{post.updated}}</li>
+        <li>content: {{post.body_first_60}}</li>
+</ul>
+{% endfor %}
+
+{% endblock%}

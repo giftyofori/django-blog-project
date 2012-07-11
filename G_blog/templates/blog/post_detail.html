@@ -1,0 +1,14 @@
+{%extends "blog/base.html"%}
+{% block content %}
+<p><h1 style="color:purple">Title: {{post.title}}</h1></p>
+<p><h5 style="color:green">Body: </h4>{{post.body}}</p>
+<p><h4 style="color:blue">Created:</h4> {{post.created}}</p>
+<p><h4 style="color:violet">Updated:</h4>{{post.created}}</p>
+
+{%for c in comments%}
+<p><h4 style="color:red">Comment: </h4>{{c.body}}</p>
+<p><h4 style="color:orange">Author:</h4> {{c.author}} </p>
+<p><h4 style="color:blue">Created:</h4> {{c.created}}</p>
+<p><h4 style="color:violet">Updated:</h4>{{c.Updated}}</p>
+{%endfor%}
+{% endblock %}
