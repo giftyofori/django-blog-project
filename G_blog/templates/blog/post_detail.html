@@ -9,6 +9,17 @@
 <p><h4 style="color:red">Comment: </h4>{{c.body}}</p>
 <p><h4 style="color:orange">Author:</h4> {{c.author}} </p>
 <p><h4 style="color:blue">Created:</h4> {{c.created}}</p>
-<p><h4 style="color:violet">Updated:</h4>{{c.Updated}}</p>
+<p><h4 style="color:violet">Updated:</h4>{{c.updated}}</p>
+<div>
+<a href="blog/comments/{{comment.id}}/edit">
+    Edit Comment
+</a>
 {%endfor%}
+<h3>New comment:</h3>
+<div>
+   <form method='post' action="">
+	{{form.as_p}}
+        <input type='submit' name='submit'>
+   </form>
+</div>
 {% endblock %}
