@@ -16,8 +16,9 @@ def post_list(request):
 
 class CommentForm(ModelForm):
     class Meta:
+        model=Comment
         exclude=['post']
-	model=Comment
+	
 	
 @csrf_exempt
 def post_detail(request, id, showComments=False):
@@ -31,11 +32,27 @@ def post_detail(request, id, showComments=False):
         return HttpResponseRedirect(request.path)
     else:
 	form=CommentForm()
-   
-    comments = post.comment_set.all()
+        comments = post.comment_set.all()
     return render_to_response('blog/post_detail.html',{'post':post,'comments':comments,'form':form})
    
-'''
+@csrf_exempt
+def edit_comments(request, id):
+    comment=Comment.objects.get(id=id)
+    if request.method=='POST':
+	form=CommentForm(request.POST,instance=comment)
+        if form.is_valid():
+          form.save()
+        return HttpResponseRedirect(comment.post.get_absolute_url())
+    else:
+       form=CommentForm(instance=comment)
+   
+    return render_to_response('blog/edit_comment.html',{'form':form})
+   
+    '''comments = post.comment_set.all()
+    return render_to_response('blog/post_detail.html',{'post':post,'comments':comments,'form':form}
+
+   
+
     tk='<h1 style="color:pink">' +thing.title +'</h1>' +     '<br>'+thing.body +'<br>'+'<h4 style="color:green">'+'comment:'+'</ h4>'+something.body
     return HttpResponse(tk)
 '''
@@ -47,6 +64,7 @@ def post_detail(request, id, showComments=False):
 def post_search(request, term):
     posts= Post.objects.filter(body__icontains =term)
     return render_to_response('blog/post_search.html',{'posts':posts,'term':term})
+
    
 
 def home(request):
