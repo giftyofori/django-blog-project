@@ -1,0 +1,14 @@
+
+{% extends "blog/base.html" %}
+
+{% block content %}
+{%if user.is_authenticated%}
+   <P> already logged in. Do you want to logout?</P>
+   <a href='blog'>logout</a>
+{%else%}
+  <form action="." method="post">
+     {{ form.as_p }}
+     <input type="submit" value="Submit" value="Login!" />
+  </form>
+{%endif%}
+{% endblock %}

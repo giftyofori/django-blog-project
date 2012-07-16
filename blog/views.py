@@ -42,6 +42,7 @@ def edit_comments(request, id):
 	form=CommentForm(request.POST,instance=comment)
         if form.is_valid():
           form.save()
+
         return HttpResponseRedirect(comment.post.get_absolute_url())
     else:
        form=CommentForm(instance=comment)
