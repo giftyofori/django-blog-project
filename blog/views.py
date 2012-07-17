@@ -11,13 +11,14 @@ from models import Post, Comment
 def post_list(request):
     posts = Post.objects.all()
     t=loader.get_template('blog/post_list.html')
-    c=Context({'posts':posts})
+    user=request.user
+    c=Context({'posts':posts,'user':user})
     return HttpResponse(t.render(c))
 
 class CommentForm(ModelForm):
     class Meta:
         model=Comment
-        exclude=['post']
+        exclude=['post','author']
 	
 	
 @csrf_exempt
@@ -33,7 +34,7 @@ def post_detail(request, id, showComments=False):
     else:
 	form=CommentForm()
         comments = post.comment_set.all()
-    return render_to_response('blog/post_detail.html',{'post':post,'comments':comments,'form':form})
+    return render_to_response('blog/post_detail.html',{'post':post,'comments':comments,'form':form,'user':request.user})
    
 @csrf_exempt
 def edit_comments(request, id):
